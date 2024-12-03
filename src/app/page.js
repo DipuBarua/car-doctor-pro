@@ -1,12 +1,9 @@
-import Image from "next/image";
+import HomePage from "@/components/homePage/HomePage";
 
 export default function Home() {
   return (
-    <div className=" min-h-screen">
-      <h2>welcome to car doctor PRO...</h2>
-
-      <button className="btn btn-primary">Primary</button>
-
-    </div>
+    <>
+      <HomePage></HomePage>
+    </>
   );
 }
