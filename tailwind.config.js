@@ -19,12 +19,20 @@ module.exports = {
   daisyui: {
     themes: [
       {
+        //custom style
         carDoctorTheme: {
-          "primary": "FF3811",
-          "secondary": "#f6d860",
-          "accent": "#37cdbe",
-          "neutral": "#3d4451",
-          "base-100": "#ffffff",
+          ...require("daisyui/src/theming/themes")["light"],
+
+          primary: "#FF3811",
+          secondary: "teal",
+
+          ".btn-primary": {
+            "color": "#FFF",
+          },
+
+          ".btn-outline.btn-primary:hover": {
+            "color": "#fff",
+          },
         },
       },
       "dark",

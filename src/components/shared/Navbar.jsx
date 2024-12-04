@@ -51,7 +51,7 @@ const Navbar = () => {
 
 
                 </div>
-                <div className="navbar-end">
+                <div className="navbar-end px-2">
                     <div className=' flex items-center text-xl space-x-4'>
                         <PiHandbag />
                         <TbSearch />
