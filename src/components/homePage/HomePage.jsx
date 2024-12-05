@@ -1,11 +1,12 @@
 import React from 'react';
 import Banner from './Banner';
+import About from './About';
 
 const HomePage = () => {
     return (
         <div className=' min-h-screen'>
             <Banner></Banner>
-            This home page | car doctor pro
+            <About></About>
         </div>
     );
 };

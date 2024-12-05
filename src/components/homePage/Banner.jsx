@@ -10,17 +10,21 @@ const Banner = () => {
                     id={`slide${index + 1}`}//index=0,1,2,3
                     className="carousel-item relative w-full bg-cover bg-no-repeat bg-top h-[90vh]"
                     style={{
-                        backgroundImage: `linear-gradient(45deg, rgba(5, 30, 245, 0.51), rgba(0, 0, 0, 0.3)), url(/assets/images/banner/${index + 1}.jpg)`,
-                        backgroundAttachment: "fixed",
+                        backgroundImage: `linear-gradient(45deg, rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.32)), url(/assets/images/banner/${index + 1}.jpg)`,
+                        // backgroundAttachment: "fixed",
                         // backgroundPosition: 'center',
                     }}>
 
-                    <div>
-                        <h1>{banner.title}</h1>
-                        <p>{banner.description}</p>
+                    <div className=' w-full h-full items-center flex pl-32'>
+                        <div className=' w-1/3 text-white space-y-6'>
+                            <h1 className=' text-5xl font-bold'>{banner.title}</h1>
+                            <p>{banner.description}</p>
+                            <button className=' btn btn-primary mr-6 rounded-sm'>Discover More</button>
+                            <button className=' btn btn-primary btn-outline rounded-sm'>Latest Project</button>
+                        </div>
                     </div>
 
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+                    <div className="absolute flex bottom-12 right-12 gap-4">
                         <a href={`#${banner.previous}`} className="btn btn-circle">❮</a>
                         <a href={`#${banner.next}`} className="btn btn-circle">❯</a>
                     </div>
