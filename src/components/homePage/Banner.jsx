@@ -16,7 +16,7 @@ const Banner = () => {
                     }}>
 
                     <div className=' w-full h-full items-center flex pl-32'>
-                        <div className=' w-1/3 text-white space-y-6'>
+                        <div className=' md:w-1/3 text-white space-y-6'>
                             <h1 className=' text-5xl font-bold'>{banner.title}</h1>
                             <p>{banner.description}</p>
                             <button className=' btn btn-primary mr-6 rounded-sm'>Discover More</button>

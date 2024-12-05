@@ -3,7 +3,7 @@ import React from 'react';
 
 const About = () => {
     return (
-        <div className=' grid md:grid-cols-1 lg:grid-cols-2 py-16 gap-5'>
+        <div className=' h-screen grid md:grid-cols-1 lg:grid-cols-2 py-16 gap-5'>
             <div className=' flex items-center'>
                 <div className=' relative'>
                     <Image src={'/assets/images/about/person.jpg'} width={360} height={450} alt='person'></Image>
