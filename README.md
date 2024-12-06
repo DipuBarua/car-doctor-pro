@@ -1,6 +1,9 @@
 # Project: Car Doctor Pro
 Live: 
 
+### Features:
+- 
+
 ### Framework: 
 - Next.js
 
@@ -9,7 +12,7 @@ Live:
 - css framework: tailwind
 - daisyUI
 - react icons
-- 
+- swiper
 
 
 ### Back-end:
