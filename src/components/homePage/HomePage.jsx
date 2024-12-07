@@ -4,8 +4,9 @@ import About from './About';
 import Services from './Services';
 import Contact from './Contact';
 import Products from './Products';
-import ProductSlide from '../cards/ProductCard';
 import TeamExpert from './TeamExpert';
+import Features from './Features';
+import Testimonial from './Testimonial';
 
 const HomePage = () => {
     return (
@@ -16,6 +17,8 @@ const HomePage = () => {
             <Contact></Contact>
             <Products></Products>
             <TeamExpert></TeamExpert>
+            <Features></Features>
+            <Testimonial></Testimonial>
         </div>
     );
 };

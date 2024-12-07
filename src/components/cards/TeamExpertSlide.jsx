@@ -6,10 +6,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
 import { team } from '@/lib/team';
 import Image from 'next/image';
@@ -22,17 +22,15 @@ const TeamExpertSlide = () => {
         <Swiper
             slidesPerView={3}
             spaceBetween={30}
-            pagination={{
-                clickable: true,
-            }}
-            modules={[Pagination]}
+            navigation={true}
+            modules={[Navigation]}
             className="mySwiper"
         >
             {
                 team.map((expert, index) => <SwiperSlide key={expert.engineer_id}>
                     <div className="card bg-base-100 w-96 shadow-xl">
                         <figure className="px-2 pt-2">
-                            <Image src={`/assets/images/team/${index + 1}.jpg`} alt={expert.engineer_id} width={210} height={250}></Image>
+                            <Image src={`/assets/images/team/${index + 1}.jpg`} alt={expert.engineer_id} width={410} height={350}></Image>
                         </figure>
                         <div className="card-body items-center text-center">
                             <h2 className="card-title">{expert.name}</h2>

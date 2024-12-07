@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="footer bg-black text-white py-14">
+        <footer className="footer bg-black text-white py-14 mt-16">
             <aside>
                 <Link href={'/'}>
                     <Image src={'/assets/logo.svg'} alt='logo' width={100} height={60}></Image>
