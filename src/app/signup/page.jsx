@@ -8,10 +8,12 @@ import { FcGoogle } from 'react-icons/fc';
 const SignUp = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
-        const name = event.target.name.value;
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-        console.log(name, email, password);
+        const newUser = {
+            name: event.target.name.value,
+            email: event.target.email.value,
+            password: event.target.password.value,
+        }
+        console.log(newUser);
     }
 
     return (
