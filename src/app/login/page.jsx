@@ -4,14 +4,32 @@ import Image from 'next/image';
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebook } from "react-icons/fa";
 import Link from 'next/link';
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation';
 
 const LogIn = () => {
+    const router = useRouter();
+
     const handleSignIn = async (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
+
+        const resp = await signIn('credentials',
+            {
+                email,
+                password,
+                redirect: false
+            }
+        )
+        console.log('user:', resp);
+
+        if (resp.status === 200) {
+            router.push('/')
+        }
     }
+
     return (
         <div className=' flex items-center justify-around h-screen'>
             <div>
@@ -21,7 +39,7 @@ const LogIn = () => {
 
             <form onSubmit={handleSignIn} className=' w-1/3 p-12 flex flex-col gap-2 border border-slate-400 rounded-xl shadow-xl shadow-slate-600 space-y-2'>
 
-                <h1 className=' text-center text-4xl font-bold'>LogIn</h1>
+                <h1 className=' text-center text-4xl font-bold'>Log In</h1>
 
                 <div>
                     <label htmlFor="email">Email</label>
@@ -64,8 +82,8 @@ const LogIn = () => {
                     </div>
 
                     <div className=' text-center'>
-                        <span>Have an account?</span>
-                        <Link href={'/signup'} className=' text-primary'>Sign Up</Link>
+                        <span>Have an account? </span>
+                        <Link href={'/signup'} className=' text-primary underline'>Sign Up</Link>
                     </div>
                 </div>
 

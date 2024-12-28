@@ -14,6 +14,19 @@ const SignUp = () => {
             password: event.target.password.value,
         }
         console.log(newUser);
+
+        const res = await fetch(`http://localhost:3000/signup/api`, {
+            method: "POST",
+            body: JSON.stringify(newUser),
+            headers: {
+                "content-type": "application/json",
+            }
+        })
+        if (res.status === 200) {
+            event.target.reset();
+        }
+
+        console.log(res);
     }
 
     return (
@@ -26,7 +39,7 @@ const SignUp = () => {
 
                 <form onSubmit={handleSignUp} className=' w-1/3 p-12 flex flex-col gap-2 border border-slate-400 rounded-xl shadow-xl shadow-slate-600 space-y-2'>
 
-                    <h1 className=' text-center text-4xl font-bold'>LogIn</h1>
+                    <h1 className=' text-center text-4xl font-bold'>Sign Up</h1>
 
                     <div>
                         <label htmlFor="name">Name</label>
@@ -82,7 +95,7 @@ const SignUp = () => {
 
                         <div className=' text-center'>
                             <span>Have an account? </span>
-                            <Link href={'/login'} className=' text-primary'>Log In</Link>
+                            <Link href={'/login'} className=' underline text-primary'>Log In</Link>
                         </div>
                     </div>
 

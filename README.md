@@ -13,6 +13,7 @@ Live:
 - daisyUI
 - react icons
 - swiper
+- bcrypt [ To secure password in DB]
 
 
 ### Back-end:

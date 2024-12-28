@@ -4,11 +4,11 @@ import { FiArrowRight } from "react-icons/fi";
 
 const ServiceCard = ({ service }) => {
     const { title, img, price } = service || {}
-    console.log(service);
+    // console.log(service);
 
     return (
         <div className="card card-compact bg-base-100 w-96 shadow-md">
-            <figure>
+            <figure className='h-64'>
                 <Image src={img} alt={title} width={420} height={100} />
             </figure>
             <div className="card-body">

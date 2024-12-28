@@ -1,3 +1,5 @@
+'use client'
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -5,6 +7,11 @@ import { PiHandbag } from "react-icons/pi";
 import { TbSearch } from "react-icons/tb";
 
 const Navbar = () => {
+
+    const session = useSession();
+    console.log(session);
+
+
     const navItems = [
         {
             title: "Home",
@@ -52,10 +59,21 @@ const Navbar = () => {
 
                 </div>
                 <div className="navbar-end px-2">
-                    <div className=' flex items-center text-xl space-x-4'>
+                    <div className=' flex items-center text-xl space-x-4 mx-2'>
                         <PiHandbag />
                         <TbSearch />
                         <a className="btn btn-outline btn-primary">Appointment</a>
+                    </div>
+                    <div>
+                        {
+                            !session.data ?
+                                <Link href={'/login'}>
+                                    <button className=' btn btn-primary'>Log In</button>
+                                </Link>
+                                :
+                                <button onClick={() => signOut()} className=' btn btn-outline outline-primary'>Log Out</button>
+                        }
+
                     </div>
                 </div>
             </div>
