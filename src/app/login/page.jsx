@@ -1,11 +1,10 @@
 "use client"
 import React from 'react';
 import Image from 'next/image';
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaFacebook } from "react-icons/fa";
 import Link from 'next/link';
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
+import SocialLogin from '@/components/shared/SocialLogin';
 
 const LogIn = () => {
     const router = useRouter();
@@ -14,7 +13,7 @@ const LogIn = () => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password);
+        // console.log(email, password);
 
         const resp = await signIn('credentials',
             {
@@ -33,53 +32,49 @@ const LogIn = () => {
     return (
         <div className=' flex items-center justify-around h-screen'>
             <div>
-                <Image src={`/assets/images/login/login.svg`} alt='image' width={510} height={410}></Image>
+                <Image
+                    src={`/assets/images/login/login.svg`}
+                    alt='image'
+                    width={510}
+                    height={410}></Image>
             </div>
 
-
-            <form onSubmit={handleSignIn} className=' w-1/3 p-12 flex flex-col gap-2 border border-slate-400 rounded-xl shadow-xl shadow-slate-600 space-y-2'>
-
+            <div className='w-1/3 p-12 flex flex-col gap-2 border border-slate-400 rounded-xl shadow-xl shadow-slate-600 '>
                 <h1 className=' text-center text-4xl font-bold'>Log In</h1>
 
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <br />
-                    <input
-                        type="email"
-                        name='email'
-                        placeholder='Your Email'
-                        className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl'
-                    />
-                </div>
+                <form onSubmit={handleSignIn}
+                    className='space-y-2 bg-lime-200'>
 
-                <div>
-                    <label htmlFor="password">Confirm Password</label>
-                    <br />
-                    <input
-                        type="text"
-                        name='password'
-                        placeholder='Your Password'
-                        className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl'
-                        required
-                    />
-                </div>
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <br />
+                        <input
+                            type="email"
+                            name='email'
+                            placeholder='Your Email'
+                            className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl'
+                        />
+                    </div>
 
-                <button type='submit' className=' btn btn-primary'>Sign In</button>
+                    <div>
+                        <label htmlFor="password">Confirm Password</label>
+                        <br />
+                        <input
+                            type="text"
+                            name='password'
+                            placeholder='Your Password'
+                            className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl'
+                            required
+                        />
+                    </div>
+
+                    <button type='submit' className='w-full btn btn-primary'>Sign In</button>
+                </form>
 
                 <div className=' space-y-1'>
                     <h1 className=' text-slate-400 text-center'>Or Sign In with</h1>
 
-                    <div className='flex items-center justify-center gap-2 text-xl'>
-                        <button className='btn rounded-full'>
-                            <FcGoogle />
-                        </button>
-                        <button className='btn rounded-full text-primary'>
-                            <FaGithub />
-                        </button>
-                        <button className='btn rounded-full text-primary'>
-                            <FaFacebook />
-                        </button>
-                    </div>
+                    <SocialLogin></SocialLogin>
 
                     <div className=' text-center'>
                         <span>Have an account? </span>
@@ -87,8 +82,7 @@ const LogIn = () => {
                     </div>
                 </div>
 
-            </form>
-
+            </div>
         </div>
     );
 };

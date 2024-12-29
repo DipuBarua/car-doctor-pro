@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/connectDB";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 // Follow the NextAuth.js configuration 
 
 const handler = NextAuth({
@@ -10,6 +12,17 @@ const handler = NextAuth({
         maxAge: 30 * 24 * 60 * 60,
     },
     providers: [
+        // social provider 
+        //Note: change the callback path for production: https://{YOUR_DOMAIN}/api/auth/callback/google.
+        GoogleProvider({
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+        }),
+        GitHubProvider({
+            clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
+        }),
+        // next auth credential provider 
         CredentialsProvider({
             credentials: {
                 email: {},
@@ -36,7 +49,28 @@ const handler = NextAuth({
             }
         })
     ],
-    callbacks: {},
+    callbacks: {
+        async signIn({ user, account }) {
+            if (account.provider === 'google' || account.provider === 'github' || account.provider === 'facebook') {
+                const { name, email, image } = user;
+                try {
+                    const db = await connectDB();
+                    const userCollection = db.collection('users')
+
+                    const existing = await userCollection.findOne({ email })
+
+                    if (!existing) {
+                        const res = await userCollection.insertOne(user);
+                        return user;
+                    }
+                    else { return user }
+
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        },
+    },
     pages: {
         signIn: '/login'
     }

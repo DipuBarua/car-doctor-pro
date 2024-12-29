@@ -9,7 +9,7 @@ import { TbSearch } from "react-icons/tb";
 const Navbar = () => {
 
     const session = useSession();
-    console.log(session);
+    console.log('session:', session);
 
 
     const navItems = [
@@ -64,17 +64,37 @@ const Navbar = () => {
                         <TbSearch />
                         <a className="btn btn-outline btn-primary">Appointment</a>
                     </div>
+
                     <div>
                         {
-                            !session.data ?
-                                <Link href={'/login'}>
-                                    <button className=' btn btn-primary'>Log In</button>
-                                </Link>
-                                :
-                                <button onClick={() => signOut()} className=' btn btn-outline outline-primary'>Log Out</button>
-                        }
+                            session?.status === 'loading'
+                                ? <h1>Loading...</h1>
+                                : <>
+                                    {
+                                        session?.status === 'unauthenticated'
+                                            ? <Link href={'/login'}>
+                                                <button className=' btn btn-primary'>Log In</button>
+                                            </Link>
+                                            :
+                                            <div className=' flex items-center justify-center gap-2'>
+                                                <button onClick={() => signOut()} className=' btn btn-outline text-primary'>Log Out</button>
 
+                                                <div className="avatar">
+                                                    <div className="ring-primary ring-offset-base-100 w-7 rounded-full ring ring-offset-2">
+                                                        <Image
+                                                            src={session?.data?.user?.image}
+                                                            alt={session?.data?.user?.name}
+                                                            width={16}
+                                                            height={16}>
+                                                        </Image>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    }
+                                </>
+                        }
                     </div>
+
                 </div>
             </div>
         </div>
