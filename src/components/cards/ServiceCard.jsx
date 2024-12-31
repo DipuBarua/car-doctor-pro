@@ -18,8 +18,9 @@ const ServiceCard = ({ service }) => {
                 <div className=" card-actions text-primary justify-between items-center font-semibold">
                     <h2>Price: ${price}</h2>
 
-                    <Link href={`/services/${_id}`}></Link>
-                    <FiArrowRight size={10}/>
+                    <Link href={`/services/${_id}`}>
+                        <FiArrowRight size={20} />
+                    </Link>
                 </div>
 
             </div>
