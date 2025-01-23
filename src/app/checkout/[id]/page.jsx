@@ -1,21 +1,53 @@
+'use client'
 import { getServiceDetails } from '@/services/getServices';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-export const metadata = {
-    title: "Checkout",
-    description: 'Service Checkout page'
-}
+// export const metadata = {
+//     title: "Checkout",
+//     description: 'Service Checkout page'
+// }
 
-const CheckoutPage = async ({ params }) => {
+const CheckoutPage = ({ params }) => {
 
-    const data = await getServiceDetails(params.id);
-    const { title, img, price, description, facility } = data.service;
+    const { data } = useSession();
+    const [service, setService] = useState({});
+    const { _id, title, img, price, description, facility } = service || {};
 
-    const handleCheckout = (e) => {
-        e.preventDefault();
-        const title = e.target.name.value;
+
+    const loadService = async () => {
+        const details = await getServiceDetails(params.id);
+        setService(details.service)
     }
+
+    const handleCheckout = async (e) => {
+        e.preventDefault();
+        const newBooking = {
+            name: e.target.name.value,
+            email: e.target.email.value,
+            address: e.target.address.value,
+            phone: e.target.phone.value,
+            date: e.target.date.value,
+            serviceTitle: title,
+            serviceId: _id,
+            price: price
+        }
+        console.log(newBooking);
+
+        const res = await fetch("http://localhost:3000/checkout/api/newBooking", {
+            method: "POST",
+            body: JSON.stringify(newBooking),
+            headers: {
+                'content-type': "application/json",
+            }
+        })
+        console.log(res);
+    }
+
+    useEffect(() => {
+        loadService();
+    }, [params])
 
     return (
         <div>
@@ -35,15 +67,27 @@ const CheckoutPage = async ({ params }) => {
             </div>
 
             <div className=' bg-gray-300 p-12 mb-12'>
-                <form onClick={handleCheckout} >
-                    <div className='flex justify-between gap-4'>
-                        <div>
+                <form onSubmit={handleCheckout} >
+                    <div>
+                        <label>Title</label>
+                        <input
+                            type="text"
+                            name='title'
+                            placeholder='Service Title'
+                            defaultValue={title}
+                            disabled
+                            className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl bg-white'
+                        />
+                    </div>
+                    <div className='flex justify-around gap-4 w-full'>
+                        <div className=' w-full space-y-2'>
                             <div>
-                                <label>Title</label>
+                                <label>Your Name</label>
                                 <input
                                     type="text"
                                     name='name'
                                     placeholder='Service Title'
+                                    defaultValue={data?.user?.name}
                                     className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl bg-white'
                                 />
                             </div>
@@ -54,6 +98,7 @@ const CheckoutPage = async ({ params }) => {
                                     type="email"
                                     name='email'
                                     placeholder='Email'
+                                    defaultValue={data?.user?.email}
                                     className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl bg-white'
                                 />
                             </div>
@@ -70,14 +115,14 @@ const CheckoutPage = async ({ params }) => {
 
                         </div>
 
-                        <div>
+                        <div className=' w-full space-y-2'>
                             <div>
-                                <label>Price</label>
+                                <label>Price($)</label>
                                 <input
-                                    disabled
+                                    readOnly
                                     type="text"
                                     name='price'
-                                    placeholder='Service Price'
+                                    defaultValue={price}
                                     className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl bg-white'
                                 />
                             </div>
@@ -97,7 +142,7 @@ const CheckoutPage = async ({ params }) => {
                                 <input
                                     type="date"
                                     name='date'
-                                    placeholder={''}
+                                    defaultValue={new Date().getDate()}
                                     className='w-full p-2 text-slate-600 border border-slate-600 rounded-xl bg-white'
                                 />
                             </div>
@@ -106,7 +151,7 @@ const CheckoutPage = async ({ params }) => {
                     </div>
 
 
-                    <button type='submit' className='btn btn-sm w-full'>CheckOut</button>
+                    <button type='submit' className='btn btn-sm hover:bg-primary my-4 w-1/3 mx-auto'>Order Confirm</button>
                 </form>
             </div>
 
